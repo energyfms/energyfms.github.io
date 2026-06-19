@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EnergyFM: Pretrained Models for Energy Data Analytics</title>
+    <link rel="icon" href="website/img/logo.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="website/css/bulma.min.css">
+    <link rel="stylesheet" href="website/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="website/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="website/css/fontawesome.all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./website/javascript/bulma-carousel.min.js"></script>
+    <script src="./website/javascript/bulma-slider.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script defer src="website/javascript/fontawesome.all.min.js"></script>
+    <script src="website/javascript/leaderboard.js" type="module"></script>
+    <script src="website/javascript/case_carousel.js"></script>
+    <link rel="stylesheet" href="website/css/index.css">
+    <style>
+        .energy-brand {
+            font-variant: small-caps !important;
+            font-weight: bold !important;
+            color: #1a365d !important;
+        }
+        .collapse-content { display: none; margin-top: 10px; }
+        .collapse-content.is-active { display: block; }
+        .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+            white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important;
+        }
+        .case-carousel { user-select: none; }
+        .case-image { max-width: 100%; max-height: 600px; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .case-carousel button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .case-carousel button:not(:disabled):hover { opacity: 0.9; transform: translateY(-2px); transition: all 0.2s ease; }
+        .figure-caption { font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title is-bold" style="margin-bottom: 1.5rem;">
+                            <img src="website/img/statistics.png" alt="logo" style="vertical-align: middle; margin-right: 15px; position: relative; top: -5px;" width="70" height="70" />
+                            <span class="energy-brand" style="vertical-align: middle">EnergyFM</span>
+                        </h1>
+                        <h2 class="title is-1 publication-title is-bold" style="margin-top:-0.7em; margin-right: 30px; margin-left: 30px;">
+                            Pretrained Models for Energy Meter Data Analytics
+                        </h2>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">Pandarasamy Arjunan<sup>1</sup>,</span>
+                            <span class="author-block">Naman Srivastava<sup>1</sup>,</span>
+                            <span class="author-block">Kajeeth Kumar<sup>1</sup>,</span>
+                            <span class="author-block">Arindam Jati<sup>2</sup>,</span>
+                            <span class="author-block">Vijay Ekambaram<sup>2</sup>,</span>
+                            <span class="author-block">Pankaj Dayama<sup>2</sup></span>
+                        </div>
+                        <div class="is-size-5 publication-authors" style="margin-top:0.5em;">
+                            <span class="author-block"><sup>1</sup>Indian Institute of Science, Bengaluru, India</span><br>
+                            <span class="author-block"><sup>2</sup>IBM Research</span>
+                        </div>
+                        <div class="column has-text-centered" style="margin-top:1.5em;">
+                            <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a>&nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://huggingface.co/EnergyFM" class="external-link button is-normal is-rounded is-dark" target="_blank"><span class="icon"><i class="fas fa-cubes"></i></span><span>Models</span></a> &nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://huggingface.co/datasets/ai-iot/EnergyBench" class="external-link button is-normal is-rounded is-dark" target="_blank"><span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span></a> &nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://huggingface.co/spaces/Thanvish07/EB_Leaderboard" class="external-link button is-normal is-rounded is-warning" target="_blank"><span class="icon"><i class="fas fa-trophy"></i></span><span>Leaderboard</span></a> &nbsp;&nbsp;</span>
+                            <span class="link-block"><a href="https://github.com/energyfms" class="external-link button is-normal is-rounded is-link" target="_blank"><span class="icon"><i class="fab fa-github"></i></span><span>GitHub</span></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="overview" style="padding-top:1.5rem;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom:1rem; font-size: 2.3em;">Overview</h2>
+            <br>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p style="text-align:justify; color:rgb(31, 30, 30);">
+                    Energy analytics powers critical applications including load forecasting, anomaly detection, demand response, and appliance characterization. Existing task-specific models often struggle to generalize across building types, regions, and operational patterns.
+                </p>
+                <p style="text-align:justify; color:rgb(31, 30, 30);">
+                    EnergyFM introduces a unified ecosystem comprising:
+                </p>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem; color:rgb(31, 30, 30);">
+                    <li>EnergyBench Dataset</li>
+                    <li>Energy Foundation Models</li>
+                    <li>Energy Benchmark Leaderboard</li>
+                    <li>Standardized Evaluation Protocols</li>
+                </ul>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-11-desktop is-12-mobile">
+                    <figure class="table-figure" style="text-align: center; margin: 1.5rem 0 2.5rem 0;">
+                        <img class="figure-image" src="website/img/overview.png" alt="EnergyFM platform overview Architecture." style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
+                        <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);"><b>Figure 1. </b> Overview of the integrated <span class="energy-brand">EnergyFM</span> platform layers.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="dataset" style="padding-top:1.5rem; background-color: #ffffff;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em; color: #1a365d;">EnergyBench Dataset</h2>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p>Large-scale smart meter repository used for pretraining and benchmarking.</p>
+            </div>
+
+            <div class="container" style="max-width: 95%; margin: 1.5rem auto 0 auto; display: flex; justify-content: center;">
+                <figure class="table-figure" style="text-align: center; width: 100%;">
+                    <img class="figure-image" src="website/img/dataset_distribution.png" alt="Building and consumption distribution." style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 0.5rem auto; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background-color: #ffffff;"/>
+                    <figcaption class="figure-caption" style="text-align: center; color: #555; margin-top: 0.75rem; font-size: 1em;"><b>Figure 2.</b> Distribution layout maps.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="models" style="padding-top:1.5rem;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em; color: #1a365d;">EnergyFM Model Zoo</h2>
+
+            <div class="columns is-centered mb-5">
+                <div class="column is-5">
+                    <div class="box style-card" style="padding: 1.5rem; border-top: 4px solid #1a365d; height: 100%; background-color: #fafafa;">
+                        <h4 class="title is-4" style="font-weight: 700; color: #1a365d; margin-bottom: 1rem;">Energy-TTM</h4>
+                        <ul style="margin-left: 1.5rem; list-style-type: square; line-height: 1.6; font-size: 1.1em;">
+                            <li>Forecasting Tasks</li>
+                            <li>168-Hour Context Window</li>
+                            <li>24-Hour Prediction Horizon</li>
+                            <li>Tiny Time Mixer Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column is-5">
+                    <div class="box style-card" style="padding: 1.5rem; border-top: 4px solid #4a5d7a; height: 100%; background-color: #fafafa;">
+                        <h4 class="title is-4" style="font-weight: 700; color: #4a5d7a; margin-bottom: 1rem;">Energy-TSPulse</h4>
+                        <ul style="margin-left: 1.5rem; list-style-type: square; line-height: 1.6; font-size: 1.1em;">
+                            <li>Anomaly Detection Track</li>
+                            <li>Classification Track</li>
+                            <li>512-Point Context Window</li>
+                            <li>Time + Frequency Domain Modeling</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-11-desktop is-12-mobile">
+                    <figure class="table-figure" style="text-align: center; margin-top: 1.5rem;">
+                        <img class="figure-image" src="website/img/model_zoo.png" alt="EnergyFM Model Zoo Diagrams" style="width: 100%; max-width: 1100px; height: auto; display: block; margin: 0 auto 1rem auto; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);"/>
+                        <figcaption class="figure-caption" style="font-style: normal; font-size: 1.1em; color: rgb(50, 50, 50);"><b>Figure 3. </b> EnergyFM Model Zoo.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="benchmark" style="padding-top:1.5rem;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em; color: #1a365d;">Benchmark Framework</h2>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 class="title is-4" style="text-align:left; font-size: 1.4em; color: #1a365d; margin-bottom: 0.5rem;">Forecasting Track</h4>
+                    <p style="margin-left: 1em;">168-hour context &rarr; 24-hour horizon setting metrics calculation.</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 class="title is-4" style="text-align:left; font-size: 1.4em; color: #1a365d; margin-bottom: 0.5rem;">Anomaly Detection Track</h4>
+                    <p style="margin-left: 1em;">Rigorous operational tests executed directly against the standard LEAD 1.0 benchmark specifications.</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 class="title is-4" style="text-align:left; font-size: 1.4em; color: #1a365d; margin-bottom: 0.5rem;">Classification Track</h4>
+                    <p style="margin-left: 1em;">Downstream identification tests verified across target appliance characterization datasets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="leaderboard" style="padding-top:1.5rem;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Leaderboard</h2>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p style="text-align:center; color:rgb(31, 30, 30); margin-bottom: 2rem;">
+                    Performance comparison across forecasting profiles, anomaly tracking loops, and appliance classification configurations.
+                </p>
+            </div>
+        </div>
+        <div class="container" style="max-width: 85%; margin: 3rem auto 0 auto;">
+            <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1a365d;">1. Forecasting Performance</h3>
+        </div>
+        <div class="container" style="margin: 0 auto 2rem auto; display: flex; justify-content: center; width: 95%;">
+            <div class="columns is-centered style-row-container" style="width: 100%;">
+                <div class="column is-6">
+                    <h4 class="title is-5" style="text-align:center; color:#555; margin-bottom: 1rem;">Commercial Buildings</h4>
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                        <div id="forecasting-commercial-table" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <h4 class="title is-5" style="text-align:center; color:#555; margin-bottom: 1rem;">Residential Buildings</h4>
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                        <div id="forecasting-residential-table" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 1. </b>Comparative forecasting split monitoring OOD vs ID absolute errors.
+        </p>
+        <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
+            <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1a365d;">2. Anomaly Detection Performance</h3>
+        </div>
+        <div class="container" style="margin: 0 auto 2rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="anomaly-table" style="width: 100%;"></div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 2. </b>Precision, Recall, and F1 performance indices for outlier classification.
+        </p>
+        <div class="container" style="max-width: 80%; margin: 4rem auto 0 auto;">
+            <h3 class="title is-4" style="text-align:center; margin-bottom: 1.5rem; font-size: 1.6em; color: #1a365d;">3. Appliance Classification Performance</h3>
+        </div>
+        <div class="container" style="margin: 0 auto 3rem auto; display: flex; justify-content: center; width: 95%;">
+            <div style="border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; width: 100%;">
+                <div id="classification-table" style="width: 100%;"></div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; font-style: italic; margin-top: 0.75rem; font-size: 0.95em; margin-bottom: 4rem;">
+            <b>Table 3. </b>Downstream tier ratings for structural home appliance identification.
+        </p>
+    </section>
+    <section class="section" id="key-findings" style="padding-top:1.5rem;">
+        <div class="container" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Key Findings</h2>
+            <div class="content has-text-justified" style="max-width: 95%; font-size: 1.2em; margin: 0 auto; line-height: 1.55;">
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 1. Target Pretraining Advantages.</b><br>Energy-specific platform pretraining yields prominent accuracy upgrades across deep forecasting runs.</p>
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 2. Zero-Shot Robustness.</b><br>Energy-TTM achieves remarkably high baseline zero-shot data transfers without requiring downstream localized loops.</p>
+                <p style="margin-bottom: 1em; background: #f5f5f5; padding: 15px; border-radius: 8px;"><b>Finding 3. Multi-Domain Space Maps.</b><br>Energy-TSPulse captures highly transferable latent representations across complex temporal configurations.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="case-study" style="padding-top:1.5rem;">
+        <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; margin-bottom: 2.5rem; font-size: 2.3em;">Visual Analytics</h2>
+            <div class="box" style="padding: 2rem; margin-bottom: 3rem; background-color: #fafafa;">
+                <div id="analytics-carousel-box" class="case-carousel">
+                    <div class="case-header"><h4 class="case-title" style="font-size: 1.4em; font-weight: bold; text-align: center; margin-bottom: 1.5rem;"></h4></div>
+                    <div class="case-image-container" style="text-align: center; margin-bottom: 1.5rem; min-height: 500px; display: flex; align-items: center; justify-content: center; background-color: white; border: 2px solid #e0e0e0; border-radius: 8px;"></div>
+                    <div class="case-controls" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button class="button is-medium prev-case" style="background-color: #1a365d; color: white;"><span class="icon"><i class="fas fa-arrow-left"></i></span><span>Previous</span></button>
+                        <span class="case-counter" style="font-size: 1.1em; font-weight: 500;"></span>
+                        <button class="button is-medium next-case" style="background-color: #1a365d; color: white;"><span>Next</span><span class="icon"><i class="fas fa-arrow-right"></i></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" style="padding-top:1.5rem;">
+        <div class="container content" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; font-size: 2.3em;">Quick Start</h2>
+            <pre style="font-size: 1.05em; background-color: #ececec; color: #0f0f0fc9; padding: 20px; border-radius: 6px;"><code>git clone https://github.com/srivnaman/EnergyFM.git
+cd EnergyFM
+pip install -r requirements.txt</code></pre>
+        </div>
+    </section>
+    <section class="section" id="BibTeX" style="padding-top:1.5rem;">
+        <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
+            <h2 class="title is-3" style="text-align:center; font-size: 2.3em;">BibTeX</h2>
+            <pre style="font-size: 1.0em;">
+@article{energyfm2026,
+  title={EnergyFM: Pretrained Models for Energy Meter Data Analytics},
+  author={Arjunan, Pandarasamy and Srivastava, Naman and Kumar, Kajeeth and Jati, Arindam and Ekambaram, Vijay and Dayama, Pankaj},
+  journal={arXiv preprint},
+  year={2026}
+}
+            </pre>
+        </div>
+    </section>
+    <section>
+        <div class="section" id="org-banners" style="display: flex; margin-bottom: -3rem; margin-left: 3rem; margin-right: 3rem;">
+            <a href="https://iisc.ac.in/" target="_blank" class="ext-link" style="margin: auto;"><img class="center-block org-banner" src="website/img/iisc_logo.jpg" style="width: 300px; height: auto;" /></a>
+            <a href="https://www.ibm.com/research" target="_blank" class="ext-link" style="margin: auto;"><img class="center-block org-banner" src="website/img/ibm_logo.png" style="width: 300px; height: auto;" /></a>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="columns is-centered">
+            <div class="column is-9">
+                <div class="content">
+                    <p style="font-size: 1.15em;">This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io" style="text-decoration: none;">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="text-decoration: none;">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

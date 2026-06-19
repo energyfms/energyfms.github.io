@@ -1,0 +1,17 @@
+model,category,OOD,ID
+Naive (Mean),Baseline,96.21,96.86
+Auto-ARIMA,Baseline,85.39,85.00
+Linear Regression,Task-Specific,95.87,103.47
+LightGBM,Task-Specific,90.03,110.37
+PatchTST,Task-Specific,72.64,71.73
+TFT,Task-Specific,77.52,76.76
+Moirai (Zero-shot),Zero-Shot,99.48,76.14
+Lag-Llama (Zero-shot),Zero-Shot,87.84,82.49
+TimesFM,Zero-Shot,68.75,66.98
+MOMENT (Zero-shot),Zero-Shot,74.03,76.37
+TTM,Zero-Shot,75.15,73.16
+Transformer-L,Task-Specific,74.42,85.67
+Energy-TTM,Zero-Shot,60.61,64.82
+Moirai (Transfer),Transfer Learning,62.28,57.18
+Lag-Llama (Transfer),Transfer Learning,68.89,66.63
+MOMENT (Transfer),Transfer Learning,71.78,73.20
